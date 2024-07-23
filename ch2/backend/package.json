@@ -5,9 +5,10 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "keycloak-connect": "^11.0.0",
+    "cors": "^2.8.5",
+    "debug": "^4.3.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "cors": "^2.8.5"
+    "keycloak-connect": "^11.0.0"
   }
 }

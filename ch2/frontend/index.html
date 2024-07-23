@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Keycloak Example Application</title>
-    <script type="text/javascript" src="KC_URL/js/keycloak.js"></script>
+    <!-- <script type="text/javascript" src="KC_URL/js/keycloak.js"></script> -->
     <script type="text/javascript" src="http://localhost:8080/js/keycloak.js"></script>
     <script type="text/javascript">
         function output(content) {
@@ -32,6 +32,8 @@
                 }
             }
             req.open('GET', 'SERVICE_URL', true);
+            // req.open('GET', 'http://localhost:3000/public', true);
+            req.open('GET', 'http://localhost:3000/secured', true);
             req.setRequestHeader('Authorization', 'Bearer ' + kc.token);
             req.send();
         }
