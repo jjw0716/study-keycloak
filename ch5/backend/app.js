@@ -2,6 +2,7 @@ var express = require('express');
 var session = require('express-session');
 var Keycloak = require('keycloak-connect');
 var cors = require('cors');
+var path = require('path');
 
 var app = express();
 
@@ -16,7 +17,9 @@ app.use(session({
   store: memoryStore
 }));
 
-var keycloak = new Keycloak({ store: memoryStore });
+var keycloakConfigPath = path.join(__dirname, 'keycloak.json');
+
+var keycloak = new Keycloak({ store: memoryStore }, keycloakConfigPath, { logLevels: ['debug'] });
 
 app.use(keycloak.middleware());
 
