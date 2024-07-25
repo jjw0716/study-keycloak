@@ -4,6 +4,6 @@ spring:
       resourceserver:
         opaquetoken:
           client-id: mybackend
-          client-secret: CLIENT_SECRET
-          issuer-uri: http://localhost:8180/auth/realms/myrealm
-          introspection-uri: http://localhost:8180/auth/realms/myrealm/protocol/openid-connect/token/introspect
+          client-secret: Ut3LQjYCBn7tByBDWyKns4Bwo3HPVliW
+          issuer-uri: http://localhost:8180/realms/myrealm
+          introspection-uri: http://localhost:8180/realms/myrealm/protocol/openid-connect/token/introspect
