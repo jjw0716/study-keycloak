@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "keycloak-connect": "^25.0.2"
+  }
+}
