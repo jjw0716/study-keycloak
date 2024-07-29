@@ -1,0 +1,56 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: keycloakdb
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloakpassword
+    networks:
+      - keycloak-network
+
+  keycloak1:
+    image: quay.io/keycloak/keycloak:22.0.1
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    volumes:
+      - ./keycloak1.conf:/opt/keycloak/conf/keycloak.conf
+      - ./mykeycloak.keystore:/opt/keycloak/conf/mykeycloak.keystore
+    command: '--verbose start'
+    ports:
+      - 8081:8080
+      # - 8441:443
+    networks:
+      - keycloak-network
+
+  keycloak2:
+    image: quay.io/keycloak/keycloak:22.0.1
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    volumes:
+      - ./keycloak2.conf:/opt/keycloak/conf/keycloak.conf
+      - ./mykeycloak.keystore:/opt/keycloak/conf/mykeycloak.keystore
+    command: '--verbose start'
+    ports:
+      - 8082:8080
+      # - 8442:443
+    networks:
+      - keycloak-network
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certificate.crt:/etc/nginx/ssl/certificate.crt
+      - ./privatekey.key:/etc/nginx/ssl/privatekey.key
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - keycloak-network
+
+networks:
+  keycloak-network:
+    driver: bridge
