@@ -1,6 +1,7 @@
 package org.keycloak.book.ch13.theme;
 
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.MultivaluedMap;
 
 import org.keycloak.models.KeycloakContext;
 import org.keycloak.models.KeycloakSession;
@@ -10,6 +11,7 @@ import org.keycloak.theme.DefaultThemeSelectorProvider;
 import org.keycloak.theme.Theme;
 import org.keycloak.theme.ThemeSelectorProvider;
 import org.keycloak.theme.ThemeSelectorProviderFactory;
+
 
 /**
  * <p>A very simple demonstration about how to customize theme selection at runtime.
@@ -81,8 +83,9 @@ public class MyThemeSelectorProvider extends DefaultThemeSelectorProvider
 
     private String getThemeParameter() {
         KeycloakContext context = session.getContext();
-        KeycloakUriInfo uri = context.getUri();
+        UriInfo uri = context.getUri();
         MultivaluedMap<String, String> parameters = uri.getQueryParameters();
+
         return parameters.getFirst("theme");
     }
 }
