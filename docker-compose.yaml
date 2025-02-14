@@ -10,32 +10,32 @@ services:
       - keycloak-network
 
   keycloak1:
-    image: quay.io/keycloak/keycloak:22.0.1
+    image: quay.io/keycloak/keycloak:26.1.2
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
     volumes:
       - ./keycloak1.conf:/opt/keycloak/conf/keycloak.conf
-      - ./mykeycloak.keystore:/opt/keycloak/conf/mykeycloak.keystore
+      - ./mykeycloak.p12:/opt/keycloak/conf/mykeycloak.p12 # 키 저장소 유형에 맞는 확장자 사용
     command: '--verbose start'
+    # command: '--verbose start-dev'
     ports:
       - 8081:8080
-      # - 8441:443
     networks:
       - keycloak-network
 
   keycloak2:
-    image: quay.io/keycloak/keycloak:22.0.1
+    image: quay.io/keycloak/keycloak:26.1.2
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
     volumes:
       - ./keycloak2.conf:/opt/keycloak/conf/keycloak.conf
-      - ./mykeycloak.keystore:/opt/keycloak/conf/mykeycloak.keystore
+      - ./mykeycloak.p12:/opt/keycloak/conf/mykeycloak.p12 # 키 저장소 유형에 맞는 확장자 사용
     command: '--verbose start'
+    # command: '--verbose start-dev'
     ports:
       - 8082:8080
-      # - 8442:443
     networks:
       - keycloak-network
 
@@ -46,7 +46,6 @@ services:
       - ./certificate.crt:/etc/nginx/ssl/certificate.crt
       - ./privatekey.key:/etc/nginx/ssl/privatekey.key
     ports:
-      - 80:80
       - 443:443
     networks:
       - keycloak-network
